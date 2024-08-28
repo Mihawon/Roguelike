@@ -27,7 +27,7 @@ function displayStatus(stage, Player, Monster) {
 //시작 화면
 function displaylobby() {
 	console.clear();
-	console.log(`\n어떤 행동을 하시겠습니까?\n=====================\n1, 게임을 시작한다\n2, 업적을 확인한다\n3, 종료\n=====================\n1-3사이의 수를 입력한뒤 Enter를 눌러주세요`);
+	console.log(`\n어떤 행동을 하시겠습니까?\n=====================\n1, 게임을 시작한다\n2, 업적을 확인한다\n3, 종료\n=====================\n1 - 3 사이의 수를 입력한 뒤 Enter를 눌러주세요`);
 	const choice = readlineSync.question('');
 
 	switch (choice) {
@@ -41,8 +41,7 @@ function displaylobby() {
 			process.exit(0);
 			break;
 		default:
-			console.log(`올바른 입력을 해주세요`);
-			handleUserInput1();
+			displaylobby();
 	}
 }	
 
