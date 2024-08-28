@@ -97,7 +97,7 @@ function battle(stage,player,monster) {
 		// 전투 선택
 		if (monster.hp > 0) {
 			displayStatus(stage,player,monster);
-			console.log(situation + `\n${monsterLuck}\n[선택지] 1, 공격하기 2, 방어하기 3, 휴식하기`);
+			console.log(situation + `\n[선택지] 1, 공격하기 2, 방어하기 3, 휴식하기`);
 			const b_choice = readlineSync.question(``);
 			switch (b_choice) {
 
