@@ -100,6 +100,9 @@ function battle(stage,player,monster) {
 			console.log(situation + `\n[선택지] 1, 공격하기 2, 방어하기 3, 휴식하기`);
 			const b_choice = readlineSync.question(``);
 			switch (b_choice) {
+				/* monsterLuck 0 : 마비 상태: 코인이 없을 때 기절, 가장 위험한 상태가 될수도, 기회가 될수도 있습니다
+				  monsterLuck 1 : 몬스터가 공격할 예정!
+				  monsterLuck 2 : 몬스터가 방어할 예정! */
 
 				case '1':
 					// 1, 공격하기
@@ -108,24 +111,28 @@ function battle(stage,player,monster) {
 							situation = `공격에 성공했다! `;
 							monster.hp -= 2; 
 							monster.coin += 2;
+							// 몬스터가 기절할 때 약점을 찌른 후, 몬스터가 회복합니다.
 						} else if (monsterLuck == 1) {
 							situation = `서로 맞붙었다!`;
 							player.hp -= 1;
 							monster.hp -= 1;
 							player.coin -= 1;
 							monster.coin -= 1; 
+							// 서로 데미지를 주는 상태입니다.
 						} else if (monsterLuck == 2) {
 							situation = `방어당했다!`;
 							player.coin -= 2; 
 							monster.coin -= 1; 
+							// 몬스터의 방어에 휘말리면 코인 손해가 일어납니다. 
 						}
 					} else {
 						situation = `지쳐서 움직일 수 없다!`;
 						player.coin += 2; 
 						if (monsterLuck == 1 || monsterLuck == 2) {
 							situation = situation + ` 공격받았다!`;
-							player.hp -= 1;
+							player.hp -= 2;
 						}
+						// 자신이 기절당한 상태입니다 
 					}
 					break;
 
@@ -136,22 +143,26 @@ function battle(stage,player,monster) {
 							situation = `힘을 비축했다!`;
 							player.coin += 2;
 							monster.coin += 2; 
+							// 기절할때 숨돌릴 시간이 생긴 상태입니다.
 						} else if (monsterLuck == 1) {
 							situation = `방어에 성공했다!`;
 							player.coin -= 1; 
 							monster.coin -= 2;
+							// 공격을 방어하면 몬스터의 코인을 깎을 수 있습니다.
 						} else if (monsterLuck == 2) {
 							situation = `서로 방어했다`;
 							player.coin -= 2;
 							monster.coin -= 2; 
+							// 서로 방어에 치중해 힘을 낭비하는 상태입니다.
 						}
 					} else {
 						situation = `지쳐서 움직일 수 없다!`;
 						player.coin += 2; 
 						if (monsterLuck == 1 || monsterLuck == 2) {
 							situation = situation + ` 공격받았다!`;
-							player.hp -=1;
+							player.hp -=2;
 						}
+						// 자신이 기절당한 상태입니다.
 					}
 					break;
 				case '3':
@@ -163,10 +174,12 @@ function battle(stage,player,monster) {
 						} else {
 							player.hp = player.maxHp;
 						}
+						// 회복합니다. 
 						if (monsterLuck == 1) {
 							situation = situation + ` 공격받았다!`;
 							player.hp -=1;
 						}
+						// 회복중에도 공격받을 수 있습니다.
 					break;
 
 				default:
